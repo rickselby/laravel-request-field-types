@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Fields;
+namespace RickSelby\LaravelRequestHooks\Fields;
 
 use Carbon\Carbon;
 
