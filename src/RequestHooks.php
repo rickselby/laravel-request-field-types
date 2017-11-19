@@ -135,7 +135,7 @@ abstract class RequestHooks extends FormRequest
      *
      * @param $array
      */
-    private function mergeRecursive($array)
+    protected function mergeRecursive($array)
     {
         $this->replace(array_replace_recursive($this->all(), $array));
     }
