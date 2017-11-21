@@ -14,10 +14,10 @@ trait RulesTrait
     /** @var Collection */
     protected $rules;
 
-    public function setRule($field, $rules)
+    public function setRules($inputField, $rules)
     {
         $this->initialiseRules();
-        $this->rules->put($field, $rules);
+        $this->rules->put($inputField, $rules);
     }
 
     public function getRules(): Collection

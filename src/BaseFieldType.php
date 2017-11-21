@@ -31,9 +31,9 @@ abstract class BaseFieldType implements FieldTypeInterface
     {
         foreach($inputFields AS $key => $value) {
             if (is_string($key)) {
-                $this->setRule($key, array_merge($value, $this->rules()));
+                $this->setRules($key, array_merge($value, $this->rules()));
             } else {
-                $this->setRule($value, $this->rules());
+                $this->setRules($value, $this->rules());
             }
         }
     }
