@@ -1,6 +1,6 @@
 {
-  "name": "rickselby/laravel-request-hooks",
-  "description": "Extend the abilities of requests",
+  "name": "rickselby/laravel-request-field-types",
+  "description": "Allow definitions of common input field types for requests",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
@@ -17,12 +17,22 @@
   },
   "autoload": {
     "psr-4": {
-      "RickSelby\\LaravelRequestHooks\\": "src/"
+      "RickSelby\\LaravelRequestFieldTypes\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "RickSelby\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "RickSelby\\LaravelRequestFieldTypes\\RequestFieldTypesServiceProvider"
+      ],
+      "aliases": {
+        "FieldTypes": "RickSelby\\LaravelRequestFieldTypes\\Facades\\FieldTypesFacade"
+      }
     }
   }
 }
