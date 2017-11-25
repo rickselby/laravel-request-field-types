@@ -2,8 +2,8 @@
 
 namespace RickSelby\LaravelRequestFieldTypes;
 
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Container\Container;
 
 class RequestFieldTypesServiceProvider extends ServiceProvider
 {

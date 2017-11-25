@@ -5,9 +5,7 @@ namespace RickSelby\LaravelRequestFieldTypes;
 use Illuminate\Support\Collection;
 
 /**
- * Allow a class to manage a list of rules for input fields
- *
- * @package RickSelby\LaravelRequestFieldTypes
+ * Allow a class to manage a list of rules for input fields.
  */
 trait RulesTrait
 {
@@ -23,12 +21,13 @@ trait RulesTrait
     public function getRules(): Collection
     {
         $this->initialiseRules();
+
         return $this->rules;
     }
 
     private function initialiseRules()
     {
-        if (!isset($this->rules)) {
+        if (! isset($this->rules)) {
             $this->rules = new Collection();
         }
     }

@@ -4,14 +4,6 @@ namespace RickSelby\Tests;
 
 use Illuminate\Support\Collection;
 use RickSelby\LaravelRequestFieldTypes\BaseFieldType;
-use RickSelby\LaravelRequestFieldTypes\FieldTypeInterface;
-use RickSelby\LaravelRequestFieldTypes\FieldTypes;
-use RickSelby\LaravelRequestFieldTypes\FieldTypesRequest;
-use RickSelby\Tests\Stubs\AuthorizedRequestStub;
-use RickSelby\Tests\Stubs\MappedStub;
-use RickSelby\Tests\Stubs\UnmappedStub;
-use RickSelby\Tests\Stubs\MappedStubPresenter;
-use RickSelby\LaravelAutoPresenterMapper\AutoPresenterMapper;
 
 class BaseFieldTypeTest extends AbstractTestCase
 {

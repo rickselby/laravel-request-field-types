@@ -3,14 +3,9 @@
 namespace RickSelby\Tests;
 
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\FieldTypeInterface;
+use RickSelby\Tests\Stubs\AuthorizedRequestStub;
 use RickSelby\LaravelRequestFieldTypes\FieldTypes;
 use RickSelby\LaravelRequestFieldTypes\FieldTypesRequest;
-use RickSelby\Tests\Stubs\AuthorizedRequestStub;
-use RickSelby\Tests\Stubs\MappedStub;
-use RickSelby\Tests\Stubs\UnmappedStub;
-use RickSelby\Tests\Stubs\MappedStubPresenter;
-use RickSelby\LaravelAutoPresenterMapper\AutoPresenterMapper;
 
 class FieldTypesRequestTest extends AbstractTestCase
 {
@@ -35,14 +30,14 @@ class FieldTypesRequestTest extends AbstractTestCase
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-        
+
         $this->fieldTypes = $this->createMock(FieldTypes::class);
         $this->fieldTypes->method('getRules')->willReturn(new Collection(['field' => ['rule1', 'rule2']]));
 
         $this->request = $this->getMockForAbstractClass(
             AuthorizedRequestStub::class,
             [
-                [], [], [], [], [], [], null ,$this->fieldTypes,
+                [], [], [], [], [], [], null, $this->fieldTypes,
             ]
         );
         $this->request->setContainer($app);

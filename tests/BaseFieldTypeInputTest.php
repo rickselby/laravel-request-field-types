@@ -2,8 +2,8 @@
 
 namespace RickSelby\Tests;
 
-use RickSelby\LaravelRequestFieldTypes\BaseFieldType;
 use RickSelby\Tests\Stubs\TouchedFieldTypeStub;
+use RickSelby\LaravelRequestFieldTypes\BaseFieldType;
 
 class BaseFieldTypeInputTest extends AbstractTestCase
 {
