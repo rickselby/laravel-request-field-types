@@ -2,10 +2,10 @@
 
 namespace RickSelby\Tests\Facades;
 
-use RickSelby\LaravelRequestFieldTypes\Facades\FieldTypesFacade;
-use RickSelby\LaravelRequestFieldTypes\FieldTypes;
 use RickSelby\Tests\AbstractTestCase;
 use GrahamCampbell\TestBenchCore\FacadeTrait;
+use RickSelby\LaravelRequestFieldTypes\FieldTypes;
+use RickSelby\LaravelRequestFieldTypes\Facades\FieldTypesFacade;
 
 class FieldTypesFacadeTest extends AbstractTestCase
 {

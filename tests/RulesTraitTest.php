@@ -3,13 +3,7 @@
 namespace RickSelby\Tests;
 
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\FieldTypes;
 use RickSelby\LaravelRequestFieldTypes\RulesTrait;
-use RickSelby\Tests\Stubs\MappedStub;
-use RickSelby\Tests\Stubs\RulesTraitStub;
-use RickSelby\Tests\Stubs\UnmappedStub;
-use RickSelby\Tests\Stubs\MappedStubPresenter;
-use RickSelby\LaravelAutoPresenterMapper\AutoPresenterMapper;
 
 class RulesTraitTest extends AbstractTestCase
 {

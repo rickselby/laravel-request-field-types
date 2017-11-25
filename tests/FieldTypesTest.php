@@ -3,12 +3,8 @@
 namespace RickSelby\Tests;
 
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\FieldTypeInterface;
 use RickSelby\LaravelRequestFieldTypes\FieldTypes;
-use RickSelby\Tests\Stubs\MappedStub;
-use RickSelby\Tests\Stubs\UnmappedStub;
-use RickSelby\Tests\Stubs\MappedStubPresenter;
-use RickSelby\LaravelAutoPresenterMapper\AutoPresenterMapper;
+use RickSelby\LaravelRequestFieldTypes\FieldTypeInterface;
 
 class FieldTypesTest extends AbstractTestCase
 {
@@ -37,7 +33,7 @@ class FieldTypesTest extends AbstractTestCase
         $this->fieldTypes->register('firstMock');
         $this->fieldTypes->register('secondMock');
         $this->assertEquals(
-            $this->rules->concat($this->rules), 
+            $this->rules->concat($this->rules),
             $this->fieldTypes->getRules()
         );
     }
@@ -101,18 +97,18 @@ class FieldTypesTest extends AbstractTestCase
 
         $this->makeFieldMocks(['firstMock', 'secondMock']);
 
-        $app->singleton('firstMock', function() {
+        $app->singleton('firstMock', function () {
             return $this->mocks['firstMock'];
         });
 
-        $app->singleton('secondMock', function() {
+        $app->singleton('secondMock', function () {
             return $this->mocks['secondMock'];
         });
     }
 
     private function makeFieldMocks(array $names)
     {
-        foreach($names AS $name) {
+        foreach ($names as $name) {
             $this->mocks[$name] = $this->createMock(FieldTypeInterface::class);
 
             $this->mocks[$name]->method('getIdentifier')->willReturn($name);

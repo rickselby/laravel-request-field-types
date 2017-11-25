@@ -4,8 +4,8 @@ namespace RickSelby\Tests\Fields;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\Fields\DateFieldType;
 use RickSelby\Tests\AbstractTestCase;
+use RickSelby\LaravelRequestFieldTypes\Fields\DateFieldType;
 
 class DateFieldTypeTest extends AbstractTestCase
 {

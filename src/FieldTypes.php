@@ -2,9 +2,9 @@
 
 namespace RickSelby\LaravelRequestFieldTypes;
 
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
+use Illuminate\Foundation\Application;
+use Illuminate\Contracts\Container\Container;
 
 class FieldTypes
 {
@@ -21,7 +21,7 @@ class FieldTypes
     }
 
     /**
-     * Register a field type
+     * Register a field type.
      *
      * @param string $class
      * @throws \Exception
@@ -29,7 +29,7 @@ class FieldTypes
     public function register(string $class)
     {
         $fieldType = $this->app->make($class);
-        if (!$fieldType instanceof FieldTypeInterface) {
+        if (! $fieldType instanceof FieldTypeInterface) {
             throw new \Exception('Registered field type must implement FieldTypeInterface');
         }
 
@@ -37,7 +37,7 @@ class FieldTypes
     }
 
     /**
-     * Set input fields for a field type, given by its identifier
+     * Set input fields for a field type, given by its identifier.
      *
      * @param string $fieldType
      * @param array $fieldNames
@@ -48,7 +48,7 @@ class FieldTypes
     }
 
     /**
-     * Get a field by its identifier
+     * Get a field by its identifier.
      *
      * @param string $fieldType
      *
@@ -65,7 +65,7 @@ class FieldTypes
     }
 
     /**
-     * Get a list of rules for all registered fields
+     * Get a list of rules for all registered fields.
      *
      * @return Collection
      */
@@ -79,7 +79,7 @@ class FieldTypes
     }
 
     /**
-     * Take the request input values and allow each field to modify them as required
+     * Take the request input values and allow each field to modify them as required.
      *
      * @param array $request
      *
