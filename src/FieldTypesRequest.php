@@ -5,10 +5,9 @@ namespace RickSelby\LaravelRequestFieldTypes;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * An extended requests that allows the use of the Fields class to manage defined fields
+ * An extended requests that allows the use of the Fields class to manage defined fields.
  *
  * Class RequestFieldsRequest
- * @package RickSelby\LaravelRequestFieldTypes
  */
 abstract class FieldTypesRequest extends FormRequest
 {
@@ -17,24 +16,30 @@ abstract class FieldTypesRequest extends FormRequest
     /** @var FieldTypes */
     protected $fields;
 
-    public function __construct(array $query = [], array $request = [], array $attributes = [], array $cookies = [],
-                                array $files = [], array $server = [], $content = null, FieldTypes $fields)
+    public function __construct(array $query, array $request, array $attributes, array $cookies,
+                                array $files, array $server, $content, FieldTypes $fields)
     {
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
         $this->fields = $fields;
     }
 
     /**
-     * Override validation, to modify the request data after successful validation
+     * Override validation, to modify the request data after successful validation.
      */
     public function validate()
     {
+        $this->defineRules();
         parent::validate();
         $this->runAfterValidate();
     }
 
     /**
-     * Get all rules, defined in the fields and locally
+     * Define your rules here.
+     */
+    abstract public function defineRules();
+
+    /**
+     * Get all rules, defined in the fields and locally.
      *
      * @return array
      */
@@ -49,9 +54,9 @@ abstract class FieldTypesRequest extends FormRequest
     }
 
     /**
-     * Replace the input values with modified values from the defined fields
+     * Replace the input values with modified values from the defined fields.
      */
-    public function runAfterValidate()
+    protected function runAfterValidate()
     {
         $this->replace($this->fields->modifyInputAfterValidation($this->all()));
     }

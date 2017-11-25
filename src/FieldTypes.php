@@ -3,27 +3,33 @@
 namespace RickSelby\LaravelRequestFieldTypes;
 
 use Illuminate\Support\Collection;
+use Illuminate\Foundation\Application;
+use Illuminate\Contracts\Container\Container;
 
 class FieldTypes
 {
     /** @var Collection */
     private $fieldTypes;
 
-    public function __construct()
+    /** @var Application */
+    private $app;
+
+    public function __construct(Container $app)
     {
         $this->fieldTypes = new Collection();
+        $this->app = $app;
     }
 
     /**
-     * Register a field type
+     * Register a field type.
      *
      * @param string $class
      * @throws \Exception
      */
     public function register(string $class)
     {
-        $fieldType = new $class;
-        if (!$fieldType instanceof FieldTypeInterface) {
+        $fieldType = $this->app->make($class);
+        if (! $fieldType instanceof FieldTypeInterface) {
             throw new \Exception('Registered field type must implement FieldTypeInterface');
         }
 
@@ -31,7 +37,7 @@ class FieldTypes
     }
 
     /**
-     * Set input fields for a field type, given by its identifier
+     * Set input fields for a field type, given by its identifier.
      *
      * @param string $fieldType
      * @param array $fieldNames
@@ -42,7 +48,7 @@ class FieldTypes
     }
 
     /**
-     * Get a field by its identifier
+     * Get a field by its identifier.
      *
      * @param string $fieldType
      *
@@ -59,19 +65,21 @@ class FieldTypes
     }
 
     /**
-     * Get a list of rules for all registered fields
+     * Get a list of rules for all registered fields.
      *
      * @return Collection
      */
     public function getRules(): Collection
     {
-        return $this->fieldTypes->reduce(function (Collection $carry, FieldTypeInterface $fieldType) {
-            return $carry->merge($fieldType->getRules());
-        }, new Collection());
+        return $this->fieldTypes
+            ->map(function (FieldTypeInterface $fieldType) {
+                return $fieldType->getRules();
+            })
+            ->collapse();
     }
 
     /**
-     * Take the request input values and allow each field to modify them as required
+     * Take the request input values and allow each field to modify them as required.
      *
      * @param array $request
      *
@@ -79,8 +87,9 @@ class FieldTypes
      */
     public function modifyInputAfterValidation($request)
     {
-        return $this->fieldTypes->reduce(function ($requestValues, FieldTypeInterface $fieldType) {
-            return $fieldType->modifyInputAfterValidation($requestValues);
-        }, $request);
+        return $this->fieldTypes
+            ->reduce(function ($requestValues, FieldTypeInterface $fieldType) {
+                return $fieldType->modifyInputAfterValidation($requestValues);
+            }, $request);
     }
 }

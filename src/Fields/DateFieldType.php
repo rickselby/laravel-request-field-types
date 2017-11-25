@@ -19,7 +19,7 @@ class DateFieldType extends BaseFieldType
     }
 
     /**
-     * Convert the dates to carbon instances
+     * Convert the dates to carbon instances.
      *
      * @param mixed $value
      *
