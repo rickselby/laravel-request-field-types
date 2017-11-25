@@ -11,6 +11,11 @@ abstract class BaseFieldType implements FieldTypeInterface
     /** @var string */
     protected $identifier;
 
+    public function __construct()
+    {
+        $this->initialiseRules();
+    }
+
     /**
      * Get the identifier for the field for registration
      *
@@ -31,6 +36,9 @@ abstract class BaseFieldType implements FieldTypeInterface
     {
         foreach($inputFields AS $key => $value) {
             if (is_string($key)) {
+                if (!is_array($value)) {
+                    $value = [$value];
+                }
                 $this->setRules($key, array_merge($value, $this->rules()));
             } else {
                 $this->setRules($value, $this->rules());

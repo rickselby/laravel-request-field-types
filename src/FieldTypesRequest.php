@@ -29,9 +29,15 @@ abstract class FieldTypesRequest extends FormRequest
      */
     public function validate()
     {
+        $this->defineRules();
         parent::validate();
         $this->runAfterValidate();
     }
+
+    /**
+     * Define your rules here.
+     */
+    abstract function defineRules();
 
     /**
      * Get all rules, defined in the fields and locally
@@ -51,7 +57,7 @@ abstract class FieldTypesRequest extends FormRequest
     /**
      * Replace the input values with modified values from the defined fields
      */
-    public function runAfterValidate()
+    protected function runAfterValidate()
     {
         $this->replace($this->fields->modifyInputAfterValidation($this->all()));
     }

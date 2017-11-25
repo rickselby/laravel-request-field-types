@@ -2,6 +2,8 @@
 
 namespace RickSelby\LaravelRequestFieldTypes;
 
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 
 class FieldTypes
@@ -9,9 +11,13 @@ class FieldTypes
     /** @var Collection */
     private $fieldTypes;
 
-    public function __construct()
+    /** @var Application */
+    private $app;
+
+    public function __construct(Container $app)
     {
         $this->fieldTypes = new Collection();
+        $this->app = $app;
     }
 
     /**
@@ -22,7 +28,7 @@ class FieldTypes
      */
     public function register(string $class)
     {
-        $fieldType = new $class;
+        $fieldType = $this->app->make($class);
         if (!$fieldType instanceof FieldTypeInterface) {
             throw new \Exception('Registered field type must implement FieldTypeInterface');
         }
@@ -65,9 +71,11 @@ class FieldTypes
      */
     public function getRules(): Collection
     {
-        return $this->fieldTypes->reduce(function (Collection $carry, FieldTypeInterface $fieldType) {
-            return $carry->merge($fieldType->getRules());
-        }, new Collection());
+        return $this->fieldTypes
+            ->map(function (FieldTypeInterface $fieldType) {
+                return $fieldType->getRules();
+            })
+            ->collapse();
     }
 
     /**
@@ -79,8 +87,9 @@ class FieldTypes
      */
     public function modifyInputAfterValidation($request)
     {
-        return $this->fieldTypes->reduce(function ($requestValues, FieldTypeInterface $fieldType) {
-            return $fieldType->modifyInputAfterValidation($requestValues);
-        }, $request);
+        return $this->fieldTypes
+            ->reduce(function ($requestValues, FieldTypeInterface $fieldType) {
+                return $fieldType->modifyInputAfterValidation($requestValues);
+            }, $request);
     }
 }

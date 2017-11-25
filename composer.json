@@ -13,6 +13,8 @@
     "laravel/framework": "5.5.*"
   },
   "require-dev": {
+    "graham-campbell/testbench": "^4.0",
+    "mockery/mockery": "^0.9.8",
     "phpunit/phpunit": "^6.0"
   },
   "autoload": {

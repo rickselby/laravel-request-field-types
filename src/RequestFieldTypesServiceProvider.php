@@ -24,8 +24,8 @@ class RequestFieldTypesServiceProvider extends ServiceProvider
      */
     public function registerRequestFields(Container $app)
     {
-        $app->singleton(FieldTypes::class, function () {
-            return new FieldTypes();
+        $app->singleton(FieldTypes::class, function () use ($app) {
+            return new FieldTypes($app);
         });
     }
 

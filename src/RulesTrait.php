@@ -14,7 +14,7 @@ trait RulesTrait
     /** @var Collection */
     protected $rules;
 
-    public function setRules($inputField, $rules)
+    public function setRules($inputField, array $rules)
     {
         $this->initialiseRules();
         $this->rules->put($inputField, $rules);
