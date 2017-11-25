@@ -8,6 +8,8 @@
 
 A way of defining common input field types in a central location and use them among all requests in your app.
 
+Tested on PHP >= 7.0, Laravel >= 5.4.
+
 ## Example usage
 
 Our app has a common date field input across many different pages. Ordinarily, we'd take our expected format string, and have it plastered across all our request rules:
@@ -81,3 +83,12 @@ field type once validation has suceeded but before the validation returns.
 
 If you need to do more complex alterations to the request data, the `modifyInputAfterValidation` function can be
 overridden directly.
+
+### Other use cases (that prompted me to write this package)
+
+*Amounts of money* - Inputs accept money as a decimal (£1.99), but the app will handle money as the smallest amount (pence).
+There is a facade to assist with converting between the two formats, and inputs are converted in the request.
+
+*DateIntervals* - Various periods of time for repeating things (1 month, 2 weeks, etc). Input is split into two fields,
+a numeric value and a drop-down for the period. Validation needs to know there are two fields but the app will work with
+a single value; we can convert the input to a single value to be passed to the rest of the app.
