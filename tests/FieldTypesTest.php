@@ -20,7 +20,7 @@ class FieldTypesTest extends AbstractTestCase
      */
     public function testRegisteringWrongClassThrowsException()
     {
-        $this->fieldTypes->register(FieldTypesTest::class);
+        $this->fieldTypes->register(self::class);
     }
 
     public function testRules()
