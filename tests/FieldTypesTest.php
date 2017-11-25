@@ -15,6 +15,14 @@ class FieldTypesTest extends AbstractTestCase
     private $rules;
     private $input;
 
+    /**
+     * @expectedException \Exception
+     */
+    public function testRegisteringWrongClassThrowsException()
+    {
+        $this->fieldTypes->register(FieldTypesTest::class);
+    }
+
     public function testRules()
     {
         $this->fieldTypes->register('firstMock');

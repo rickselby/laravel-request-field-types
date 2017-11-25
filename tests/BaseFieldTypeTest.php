@@ -46,6 +46,13 @@ class BaseFieldTypeTest extends AbstractTestCase
         $this->assertEquals(['field' => 'value'], $output);
     }
 
+    public function testDefaultClassDoesntAlterInput()
+    {
+        $this->baseFieldType->setInputFields(['field']);
+        $output = $this->baseFieldType->modifyInputAfterValidation(['field' => 'value']);
+        $this->assertEquals(['field' => 'value'], $output);
+    }
+
     /***************************************************************************************************/
 
     protected function getEnvironmentSetUp($app)
