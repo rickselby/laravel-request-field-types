@@ -1,9 +1,9 @@
 # Laravel Request Field Types
 
 ![PHP 7.0+](https://img.shields.io/badge/php-7.0%2B-blue.svg)
-[![Build Status](https://img.shields.io/travis/rickselby/laravel-request-field-types.svg)](https://travis-ci.org/rickselby/laravel-auto-presenter-mapper)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/065c32de-1142-4943-b5ed-b5ce6771ec8a.svg)](https://insight.sensiolabs.com/projects/6a69b118-1651-418b-a8b5-f2780dbc893c)
-[![Code Coverage](https://img.shields.io/codecov/c/github/rickselby/laravel-request-field-types.svg)](https://codecov.io/gh/rickselby/laravel-auto-presenter-mapper)
+[![Build Status](https://img.shields.io/travis/rickselby/laravel-request-field-types.svg)](https://travis-ci.org/rickselby/laravel-request-field-types)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/065c32de-1142-4943-b5ed-b5ce6771ec8a.svg)](https://insight.sensiolabs.com/projects/065c32de-1142-4943-b5ed-b5ce6771ec8a)
+[![Code Coverage](https://img.shields.io/codecov/c/github/rickselby/laravel-request-field-types.svg)](https://codecov.io/gh/rickselby/laravel-request-field-types)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
 A way of defining common input field types in a central location and use them among all requests in your app.
@@ -86,7 +86,7 @@ overridden directly.
 
 ### Other use cases (that prompted me to write this package)
 
-*Amounts of money* - Inputs accept money as a decimal (£1.99), but the app will handle money as the smallest amount (pence).
+*Amounts of money* - Inputs accept money as a decimal (£1.99), but the app will handle money as the smallest unit (199 pence).
 There is a facade to assist with converting between the two formats, and inputs are converted in the request.
 
 *DateIntervals* - Various periods of time for repeating things (1 month, 2 weeks, etc). Input is split into two fields,
