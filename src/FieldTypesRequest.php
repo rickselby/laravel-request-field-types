@@ -11,10 +11,15 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 abstract class FieldTypesRequest extends FormRequest
 {
-    use RulesTrait;
+    use RulesTrait {
+        setRules as private traitSetRules;
+    }
 
     /** @var FieldTypes */
-    protected $fields;
+    private $fields;
+
+    /** @var string[] */
+    private $fieldOrder = [];
 
     public function __construct(FieldTypes $fields, array $query = [], array $request = [], array $attributes = [],
                                 array $cookies = [], array $files = [], array $server = [], $content = null)
@@ -34,6 +39,34 @@ abstract class FieldTypesRequest extends FormRequest
     }
 
     /**
+     * Set input fields for a field type
+     *
+     * @param string $fieldType
+     * @param array $fieldNames
+     *
+     * @throws \Exception
+     */
+    public function setInputsFor($fieldType, array $fieldNames)
+    {
+        $this->fields->setInputsFor($fieldType, $fieldNames);
+        foreach($fieldNames AS $inputField) {
+            $this->addFieldToOrder($inputField);
+        }
+    }
+
+    /**
+     * Set rules for an input field
+     *
+     * @param $inputField
+     * @param array $rules
+     */
+    public function setRules($inputField, array $rules)
+    {
+        $this->traitSetRules($inputField, $rules);
+        $this->addFieldToOrder($inputField);
+    }
+
+    /**
      * Define your rules here.
      */
     abstract public function defineRules();
@@ -48,6 +81,7 @@ abstract class FieldTypesRequest extends FormRequest
         return $this->fields->getRules()
             ->union($this->getRules())
             ->map->implode('|')
+            ->setKeyOrder($this->fieldOrder)
             ->toArray();
     }
 
@@ -57,5 +91,25 @@ abstract class FieldTypesRequest extends FormRequest
     protected function runAfterValidate()
     {
         $this->replace($this->fields->modifyInputAfterValidation($this->all()));
+    }
+
+    /**
+     * Directly set the field order
+     *
+     * @param array $order
+     */
+    public function setFieldOrder(array $order)
+    {
+        $this->fieldOrder = $order;
+    }
+
+    /**
+     * Add a single field to the field order
+     *
+     * @param $inputField
+     */
+    private function addFieldToOrder($inputField)
+    {
+        $this->fieldOrder[] = $inputField;
     }
 }

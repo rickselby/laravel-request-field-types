@@ -41,8 +41,10 @@ class FieldTypes
      *
      * @param string $fieldType
      * @param array $fieldNames
+     *
+     * @throws \Exception
      */
-    public function setInputsFor($fieldType, $fieldNames)
+    public function setInputsFor($fieldType, array $fieldNames)
     {
         $this->getIdentifier($fieldType)->setInputFields($fieldNames);
     }

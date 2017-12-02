@@ -48,7 +48,7 @@ Now we need somewhere to define the rules for this request. `defineRules()` is s
 ```php
 protected function defineRules()
 {
-    $this->fields->setInputsFor('date', ['start_date', 'end_date']);
+    $this->setInputsFor('date', ['start_date', 'end_date']);
 }
 ```
 
@@ -60,7 +60,7 @@ We can define further rules if we need, or add rules to defined fields:
 protected function defineRules()
 {
     // We can mix keyed and non-keyed field names as required
-    $this->fields->setInputsFor('date', [
+    $this->setInputsFor('date', [
         'start_date' => 'required',
         'end_date' => 'nullable',
         'other_date'
