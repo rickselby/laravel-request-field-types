@@ -33,7 +33,7 @@ class RequestFieldTypesServiceProvider extends ServiceProvider
 
     protected function registerCollectionMacros()
     {
-        /**
+        /*
          * Order a macro by passing in an array of keys in the desired order
          */
         Collection::macro('setKeyOrder', function (array $keyOrder) {
@@ -41,7 +41,7 @@ class RequestFieldTypesServiceProvider extends ServiceProvider
             $original = clone $this;
             $replacement = new Collection();
 
-            foreach($keyOrder AS $key) {
+            foreach ($keyOrder as $key) {
                 if ($original->has($key)) {
                     $replacement->put($key, $original->pull($key));
                 }

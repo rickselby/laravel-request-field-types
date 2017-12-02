@@ -39,7 +39,7 @@ abstract class FieldTypesRequest extends FormRequest
     }
 
     /**
-     * Set input fields for a field type
+     * Set input fields for a field type.
      *
      * @param string $fieldType
      * @param array $fieldNames
@@ -49,13 +49,13 @@ abstract class FieldTypesRequest extends FormRequest
     public function setInputsFor($fieldType, array $fieldNames)
     {
         $this->fields->setInputsFor($fieldType, $fieldNames);
-        foreach($fieldNames AS $inputField) {
+        foreach ($fieldNames as $inputField) {
             $this->addFieldToOrder($inputField);
         }
     }
 
     /**
-     * Set rules for an input field
+     * Set rules for an input field.
      *
      * @param $inputField
      * @param array $rules
@@ -94,7 +94,7 @@ abstract class FieldTypesRequest extends FormRequest
     }
 
     /**
-     * Directly set the field order
+     * Directly set the field order.
      *
      * @param array $order
      */
@@ -104,7 +104,7 @@ abstract class FieldTypesRequest extends FormRequest
     }
 
     /**
-     * Add a single field to the field order
+     * Add a single field to the field order.
      *
      * @param $inputField
      */
