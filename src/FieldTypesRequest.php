@@ -16,8 +16,8 @@ abstract class FieldTypesRequest extends FormRequest
     /** @var FieldTypes */
     protected $fields;
 
-    public function __construct(array $query = [], array $request = [], array $attributes = [], array $cookies = [],
-                                array $files = [], array $server = [], $content = null, FieldTypes $fields)
+    public function __construct(FieldTypes $fields, array $query = [], array $request = [], array $attributes = [],
+                                array $cookies = [], array $files = [], array $server = [], $content = null)
     {
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
         $this->fields = $fields;
