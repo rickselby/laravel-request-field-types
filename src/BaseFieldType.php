@@ -8,8 +8,7 @@ abstract class BaseFieldType implements FieldTypeInterface
 {
     use RulesTrait;
 
-    /** @var string */
-    protected $identifier;
+    const ID = '';
 
     public function __construct()
     {
@@ -23,7 +22,7 @@ abstract class BaseFieldType implements FieldTypeInterface
      */
     public function getIdentifier(): string
     {
-        return $this->identifier;
+        return static::ID;
     }
 
     /**

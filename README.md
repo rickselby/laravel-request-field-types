@@ -48,7 +48,7 @@ Now we need somewhere to define the rules for this request. `defineRules()` is s
 ```php
 protected function defineRules()
 {
-    $this->setInputsFor('date', ['start_date', 'end_date']);
+    $this->setInputsFor(Date::ID, ['start_date', 'end_date']);
 }
 ```
 
@@ -60,7 +60,7 @@ We can define further rules if we need, or add rules to defined fields:
 protected function defineRules()
 {
     // We can mix keyed and non-keyed field names as required
-    $this->setInputsFor('date', [
+    $this->setInputsFor(Date::ID, [
         'start_date' => 'required',
         'end_date' => 'nullable',
         'other_date'
@@ -75,7 +75,7 @@ The request keeps track of the order rules are set, and returns the rules in the
 messages are returned in the correct order. It is possible to override the field order, if it's not possible
 (or would mean large code duplication) to keep things in the correct order - for example, you may have
 multiple date fields spread throughout your form, and you wish to keep your code clean and only call
-`setInputsFor('date',` once.
+`setInputsFor(Date::ID,` once.
 
 ```php
 $this->setFieldOrder(['field1', 'field2'...]);
@@ -93,6 +93,10 @@ field type once validation has suceeded but before the validation returns.
 
 If you need to do more complex alterations to the request data, the `modifyInputAfterValidation` function can be
 overridden directly.
+
+## Creating your own fields
+
+TODO
 
 ### Other use cases (that prompted me to write this package)
 

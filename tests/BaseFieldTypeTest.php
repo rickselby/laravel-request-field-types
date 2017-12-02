@@ -3,6 +3,7 @@
 namespace RickSelby\Tests;
 
 use RickSelby\LaravelRequestFieldTypes\BaseFieldType;
+use RickSelby\Tests\Stubs\IDFieldTypeStub;
 
 class BaseFieldTypeTest extends AbstractTestCase
 {
@@ -11,7 +12,6 @@ class BaseFieldTypeTest extends AbstractTestCase
 
     public function testGetIdentifier()
     {
-        $this->setProtectedProperty($this->baseFieldType, 'identifier', 'ID');
         $this->assertEquals('ID', $this->baseFieldType->getIdentifier());
     }
 
@@ -66,7 +66,7 @@ class BaseFieldTypeTest extends AbstractTestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        $this->baseFieldType = $this->getMockForAbstractClass(BaseFieldType::class);
+        $this->baseFieldType = $this->getMockForAbstractClass(IDFieldTypeStub::class);
         $this->baseFieldType->expects($this->any())->method('rules')->willReturn(['rule']);
     }
 
