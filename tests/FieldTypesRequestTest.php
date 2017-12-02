@@ -47,6 +47,18 @@ class FieldTypesRequestTest extends AbstractTestCase
         $this->assertEquals($order, array_keys($this->request->rules()));
     }
 
+    public function testRulesOrderWithFields()
+    {
+        $this->fieldTypes->method('setInputsFor')->willReturn(collect(['field2']));
+        $this->fieldTypeRules->put('field2', collect('rule'));
+
+        $this->request->setRules('field1', ['rule']);
+        $this->request->setInputsFor('field2', ['rule']);
+        $this->request->setRules('field3', ['rule']);
+
+        $this->assertEquals(['field1', 'field2', 'field3'], array_keys($this->request->rules()));
+    }
+
     public function testGetsRulesFromFields()
     {
         $this->fieldTypeRules->put('field', collect(['rule']));

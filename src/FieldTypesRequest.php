@@ -48,10 +48,9 @@ abstract class FieldTypesRequest extends FormRequest
      */
     public function setInputsFor($fieldType, array $fieldNames)
     {
-        $this->fields->setInputsFor($fieldType, $fieldNames);
-        foreach ($fieldNames as $inputField) {
+        $this->fields->setInputsFor($fieldType, $fieldNames)->each(function ($inputField) {
             $this->addFieldToOrder($inputField);
-        }
+        });
     }
 
     /**

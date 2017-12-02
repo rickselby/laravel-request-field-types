@@ -120,7 +120,7 @@ class FieldTypesTest extends AbstractTestCase
             $this->mocks[$name] = $this->createMock(FieldTypeInterface::class);
 
             $this->mocks[$name]->method('getIdentifier')->willReturn($name);
-            $this->mocks[$name]->method('setInputFields')->willReturn(null);
+            $this->mocks[$name]->method('setInputFields')->willReturn(collect());
             $this->mocks[$name]->method('getRules')->willReturn($this->rules);
             $this->mocks[$name]->method('modifyInputAfterValidation')->willReturn($this->input);
         }

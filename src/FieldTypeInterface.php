@@ -17,8 +17,10 @@ interface FieldTypeInterface
      * Set a list of input fields.
      *
      * @param array $inputFields
+     *
+     * @return Collection List of input fields added
      */
-    public function setInputFields(array $inputFields);
+    public function setInputFields(array $inputFields): Collection;
 
     /**
      * Get a list of rules for input fields.

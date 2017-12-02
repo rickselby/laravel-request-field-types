@@ -31,19 +31,25 @@ abstract class BaseFieldType implements FieldTypeInterface
      * and definitions of rules for an input field name (as fieldName => rules).
      *
      * @param array $inputFields
+     *
+     * @return Collection
      */
-    public function setInputFields(array $inputFields)
+    public function setInputFields(array $inputFields):Collection
     {
+        $fieldNames = collect();
         foreach ($inputFields as $key => $value) {
             if (is_string($key)) {
-                if (! is_array($value)) {
+                if (!is_array($value)) {
                     $value = [$value];
                 }
                 $this->setRules($key, array_merge($value, $this->rules()));
+                $fieldNames->push($key);
             } else {
                 $this->setRules($value, $this->rules());
+                $fieldNames->push($value);
             }
         }
+        return $fieldNames;
     }
 
     /**
