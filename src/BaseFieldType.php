@@ -34,7 +34,7 @@ abstract class BaseFieldType implements FieldTypeInterface
      *
      * @return Collection
      */
-    public function setInputFields(array $inputFields):Collection
+    public function setInputFields(array $inputFields): Collection
     {
         $fieldNames = collect();
         foreach ($inputFields as $key => $value) {
