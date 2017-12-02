@@ -2,7 +2,6 @@
 
 namespace RickSelby\Tests;
 
-use Illuminate\Support\Collection;
 use RickSelby\LaravelRequestFieldTypes\BaseFieldType;
 
 class BaseFieldTypeTest extends AbstractTestCase

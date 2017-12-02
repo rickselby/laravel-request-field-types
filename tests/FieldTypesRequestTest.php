@@ -2,7 +2,6 @@
 
 namespace RickSelby\Tests;
 
-use Illuminate\Support\Collection;
 use RickSelby\Tests\Stubs\AuthorizedRequestStub;
 use RickSelby\LaravelRequestFieldTypes\FieldTypes;
 use RickSelby\LaravelRequestFieldTypes\FieldTypesRequest;

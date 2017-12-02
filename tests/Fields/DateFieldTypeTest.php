@@ -3,7 +3,6 @@
 namespace RickSelby\Tests\Fields;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use RickSelby\Tests\AbstractTestCase;
 use RickSelby\LaravelRequestFieldTypes\Fields\DateFieldType;
 
