@@ -39,7 +39,7 @@ abstract class BaseFieldType implements FieldTypeInterface
         $fieldNames = collect();
         foreach ($inputFields as $key => $value) {
             if (is_string($key)) {
-                if (!is_array($value)) {
+                if (! is_array($value)) {
                     $value = [$value];
                 }
                 $this->setRules($key, array_merge($value, $this->rules()));
@@ -49,6 +49,7 @@ abstract class BaseFieldType implements FieldTypeInterface
                 $fieldNames->push($value);
             }
         }
+
         return $fieldNames;
     }
 
