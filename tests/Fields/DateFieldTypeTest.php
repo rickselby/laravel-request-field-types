@@ -28,7 +28,7 @@ class DateFieldTypeTest extends AbstractTestCase
         $output = $this->fieldType->modifyInputAfterValidation(['field' => '2017-09-09']);
 
         $this->assertEquals(
-            Carbon::create(2017, 9, 9),
+            Carbon::create(2017, 9, 9)->startOfDay(),
             $output['field']
         );
     }

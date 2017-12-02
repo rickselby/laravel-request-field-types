@@ -27,6 +27,6 @@ class DateFieldType extends BaseFieldType
      */
     protected function mapAfterValidationFunction($value)
     {
-        return $value ? Carbon::createFromFormat($this->dateFormat, $value) : null;
+        return $value ? Carbon::createFromFormat($this->dateFormat, $value)->startOfDay() : null;
     }
 }
