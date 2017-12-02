@@ -36,9 +36,7 @@ class FieldTypesRequestTest extends AbstractTestCase
 
         $this->request = $this->getMockForAbstractClass(
             AuthorizedRequestStub::class,
-            [
-                [], [], [], [], [], [], null, $this->fieldTypes,
-            ]
+            [$this->fieldTypes]
         );
         $this->request->setContainer($app);
     }
