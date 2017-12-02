@@ -71,6 +71,16 @@ protected function defineRules()
 }
 ```
 
+The request keeps track of the order rules are set, and returns the rules in the given order, so the validation
+messages are returned in the correct order. It is possible to override the field order, if it's not possible
+(or would mean large code duplication) to keep things in the correct order - for example, you may have
+multiple date fields spread throughout your form, and you wish to keep your code clean and only call
+`setInputsFor('date',` once.
+
+```php
+$this->setFieldOrder(['field1', 'field2'...]);
+```
+
 ## Modifying the request data
 
 What if our date format is something else - something that Eloquent won't accept as a date field? We need to convert the
