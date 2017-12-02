@@ -14,9 +14,13 @@ trait RulesTrait
 
     public function setRules($inputField, array $rules)
     {
+        $rules = collect($rules);
         $this->initialiseRules();
         if ($this->rules->has($inputField)) {
-            $this->rules->put($inputField, array_unique(array_merge($this->rules->get($inputField), $rules)));
+            $this->rules->put(
+                $inputField,
+                $this->rules->get($inputField)->merge($rules)->unique()->values()
+            );
         } else {
             $this->rules->put($inputField, $rules);
         }
@@ -32,7 +36,7 @@ trait RulesTrait
     private function initialiseRules()
     {
         if (! isset($this->rules)) {
-            $this->rules = new Collection();
+            $this->rules = collect();
         }
     }
 }

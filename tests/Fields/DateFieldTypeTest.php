@@ -16,7 +16,7 @@ class DateFieldTypeTest extends AbstractTestCase
     {
         $this->fieldType->setInputFields(['field']);
         $this->assertEquals(
-            new Collection(['field' => ['date_format:"Y-m-d"']]),
+            collect(['field' => collect(['date_format:"Y-m-d"'])]),
             $this->fieldType->getRules()
         );
     }

@@ -47,9 +47,7 @@ abstract class FieldTypesRequest extends FormRequest
     {
         return $this->fields->getRules()
             ->union($this->getRules())
-            ->map(function ($rules) {
-                return implode('|', $rules);
-            })
+            ->map->implode('|')
             ->toArray();
     }
 

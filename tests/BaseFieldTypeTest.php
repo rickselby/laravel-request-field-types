@@ -19,22 +19,22 @@ class BaseFieldTypeTest extends AbstractTestCase
     public function testSetInputFieldsSimple()
     {
         $this->baseFieldType->setInputFields(['field']);
-        $this->assertEquals(new Collection(['field' => ['rule']]), $this->baseFieldType->getRules());
+        $this->assertEquals(collect(['field' => collect(['rule'])]), $this->baseFieldType->getRules());
     }
 
     public function testSetInputFieldsWithExtraRules()
     {
         $this->baseFieldType->setInputFields(['field' => 'rule2']);
-        $this->assertEquals(new Collection(['field' => ['rule2', 'rule']]), $this->baseFieldType->getRules());
+        $this->assertEquals(collect(['field' => collect(['rule2', 'rule'])]), $this->baseFieldType->getRules());
     }
 
     public function testSetInputFieldsWithBoth()
     {
         $this->baseFieldType->setInputFields(['simplefield', 'field' => 'rule2']);
         $this->assertEquals(
-            new Collection([
-                'simplefield' => ['rule'],
-                'field' => ['rule2', 'rule'],
+            collect([
+                'simplefield' => collect(['rule']),
+                'field' => collect(['rule2', 'rule']),
             ]),
             $this->baseFieldType->getRules()
         );

@@ -32,7 +32,7 @@ class FieldTypesRequestTest extends AbstractTestCase
         parent::getEnvironmentSetUp($app);
 
         $this->fieldTypes = $this->createMock(FieldTypes::class);
-        $this->fieldTypes->method('getRules')->willReturn(new Collection(['field' => ['rule1', 'rule2']]));
+        $this->fieldTypes->method('getRules')->willReturn(collect(['field' => collect(['rule1', 'rule2'])]));
 
         $this->request = $this->getMockForAbstractClass(
             AuthorizedRequestStub::class,
