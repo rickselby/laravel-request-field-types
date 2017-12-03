@@ -82,6 +82,15 @@ class FieldTypes
             ->collapse();
     }
 
+    public function getMessages(): Collection
+    {
+        return $this->fieldTypes
+            ->map(function (FieldTypeInterface $fieldType) {
+                return $fieldType->getMessages();
+            })
+            ->collapse();
+    }
+
     /**
      * Take the request input values and allow each field to modify them as required.
      *

@@ -10,83 +10,103 @@ A way of defining common input field types in a central location and use them am
 
 Tested on PHP >= 7.0, Laravel >= 5.4.
 
-## Example usage
+## Installing
 
-Our app has a common date field input across many different pages. Ordinarily, we'd take our expected format string, and have it plastered across all our request rules:
-  
 ```php
-date_format:"Y-m-d"
+$ composer require rickselby/laravel-request-field-types
 ```
-  
-Using this package, we can define this format in a single location, allowing for easier updating should our front end change.
 
-Let's include the package:
+Under Laravel 5.5, the package will be automatically discovered.
 
-    $ composer require rickselby/laravel-request-field-types
-    
-Under Laravel 5.5, it will be automatically discovered.
+## Terminology
 
-Next, we need to register the fields we will be using in the app. We can do this in the `boot()` function `app/Providers/AppServiceProvider.php` (or any loaded ServicePrivoder, if you prefer to create your own):
+'Field' is used as two different terms here; I hope I've been clear throughout the documentation:
+
+* **Field Type** - e.g. date, name, email...
+* **Input Field** - the fields posted as part of a request
+
+## Defining field types
+
+Each field must implement `FieldTypeInterface`. `BaseFieldType` implements the interface and sets up
+common functions, and is a good starting place to implementing your own fields.
+
+Three things need implementing from the `BaseFieldType`:
+
+* `const ID` - a unique identifier for the field
+* `rules()` - the default rules for an input field
+* `setMessagesFor($inputField)` - define any custom messages for the input field
+
+An example field is included (DateFieldType).
+
+### Registering field types
+
+Each field type needs to be registered; this can be done in a service provider:
 
 ```php
 FieldTypes::register(RickSelby\LaravelRequestFieldTypes\Fields\DateFieldType::class);
 ```
-    
-Now to our request. Start by extending `RickSelby\LaravelRequestFieldTypes\FieldTypesRequest` instead of `Illuminate\Foundation\Http\FormRequest`:
+
+## Using field types in requests
+
+Start by extending `RickSelby\LaravelRequestFieldTypes\FieldTypesRequest`
+instead of `Illuminate\Foundation\Http\FormRequest`.
+
+Then, two functions need defining:
+
+* **defineRules()**
+* **defineMessages()**
+
+There is no need to define `rules()` and `messages()`; these are managed within the class.
+
+### `defineRules()`
+
+Instead of adding rules to an array in `rules()`, we can define them using functions here.
+
+For a defined field types, use `setInputsFor()`:
 
 ```php
-use RickSelby\LaravelRequestFieldTypes\FieldTypesRequest;
+$this->setInputsFor(DateFieldType::ID, ['start_date', 'end_date']);
 
-class ExampleRequest extends FieldTypesRequest
-{
+// Passing a key => value pair allows extra rules to be added to an input field;
+$this->setInputsFor(DateFieldType::ID, ['start_date' => 'required']);
 
-}
+// Keyed and non-keyed field names can be mixed as required
+$this->setInputsFor(Date::ID, ['start_date' => 'required', 'end_date']);
 ```
 
-Now we need somewhere to define the rules for this request. `defineRules()` is set up to be called before validation. (The `FieldTypesRequest` defines the `rules()` function to pulls in all defined rules and format them correctly.)
-
+For other fields, rules can be set directly with `setRules()`:
 ```php
-protected function defineRules()
-{
-    $this->setInputsFor(Date::ID, ['start_date', 'end_date']);
-}
+$this->setRules('otherfield', ['required', 'numeric']);
 ```
 
-And we're done. The request will use the rules defined for the `DateField` class for those input fields.
-
-We can define further rules if we need, or add rules to defined fields:
-
-```php
-protected function defineRules()
-{
-    // We can mix keyed and non-keyed field names as required
-    $this->setInputsFor(Date::ID, [
-        'start_date' => 'required',
-        'end_date' => 'nullable',
-        'other_date'
-    ]);
-    
-    // And define rules on other fields
-    $this->setRules('otherfield', ['required']);
-}
-```
+#### Ordering
 
 The request keeps track of the order rules are set, and returns the rules in the given order, so the validation
-messages are returned in the correct order. It is possible to override the field order, if it's not possible
-(or would mean large code duplication) to keep things in the correct order - for example, you may have
-multiple date fields spread throughout your form, and you wish to keep your code clean and only call
-`setInputsFor(Date::ID,` once.
+messages are returned in the desired order. It is possible to override the field order, if preferred:
 
 ```php
 $this->setFieldOrder(['field1', 'field2'...]);
 ```
 
+### `defineMessages()`
+
+Custom messages for defined field types' default rules can be set in the field type.
+Other messages can be set for rules using `setMessage()`
+
+```php
+$this->setMessage('start_date.required', 'A start date must be provided.');
+```
+
 ## Modifying the request data
 
-What if our date format is something else - something that Eloquent won't accept as a date field? We need to convert the
-date to a suitable format before saving it. And where better to do this, than the same place where the date format is
-defined?
-_(This is probably a contentious way of modifying input, but it makes sense to me!)_
+_(This is probably a contentious way of modifying input, but it makes sense to me...)_
+
+Say we have a date field. The input field knows what format will be generated, and the request will
+know what format to validate. Where does it get converted for use in the rest of the app? Do we
+need to define the date format elsewhere as well, or can this be handled in the request?
+
+Since the request knows about the expected input formats, it seems the right place to modify (valid) data
+for use in the rest of the app.
 
 The supplied `DateFieldType` does this; the `mapAfterValidationFunction` will be run on all input fields set for this
 field type once validation has suceeded but before the validation returns.
@@ -94,15 +114,15 @@ field type once validation has suceeded but before the validation returns.
 If you need to do more complex alterations to the request data, the `modifyInputAfterValidation` function can be
 overridden directly.
 
-## Creating your own fields
+## ...but why?
 
-TODO
+This was mostly driven by the desire to modify the request data.
 
-### Other use cases (that prompted me to write this package)
+Starting with a date field - must I define the date format in every request? Can I have a single base
+request that others extend from, and I define it there? Can I convert the input to a carbon instance
+before it is returned to the app?
 
-*Amounts of money* - Inputs accept money as a decimal (£1.99), but the app will handle money as the smallest unit (199 pence).
-There is a facade to assist with converting between the two formats, and inputs are converted in the request.
+Then, other fields fell into the same pattern - other inputs that could be modified to a better format
+for use in the app. The base request for the app became large and unwieldy, and thus this class was born.
 
-*DateIntervals* - Various periods of time for repeating things (1 month, 2 weeks, etc). Input is split into two fields,
-a numeric value and a drop-down for the period. Validation needs to know there are two fields but the app will work with
-a single value; we can convert the input to a single value to be passed to the rest of the app.
+Perhaps it is overkill, even for defining common field types within an app.

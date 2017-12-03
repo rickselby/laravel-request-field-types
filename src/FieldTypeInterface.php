@@ -30,6 +30,13 @@ interface FieldTypeInterface
     public function getRules(): Collection;
 
     /**
+     * Get a list of messages for input fields.
+     *
+     * @return Collection
+     */
+    public function getMessages(): Collection;
+
+    /**
      * Take the list of input values and modify them as required.
      *
      * @param array $requestValues

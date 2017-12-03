@@ -6,12 +6,13 @@ use Illuminate\Support\Collection;
 
 abstract class BaseFieldType implements FieldTypeInterface
 {
-    use RulesTrait;
+    use MessagesTrait, RulesTrait;
 
     const ID = '';
 
     public function __construct()
     {
+        $this->initialiseMessages();
         $this->initialiseRules();
     }
 
@@ -43,9 +44,11 @@ abstract class BaseFieldType implements FieldTypeInterface
                 }
                 $this->setRules($key, array_merge($value, $this->rules()));
                 $fieldNames->push($key);
+                $this->setMessagesFor($key);
             } else {
                 $this->setRules($value, $this->rules());
                 $fieldNames->push($value);
+                $this->setMessagesFor($value);
             }
         }
 
@@ -58,6 +61,13 @@ abstract class BaseFieldType implements FieldTypeInterface
      * @return array
      */
     abstract protected function rules(): array;
+
+    /**
+     * Set custom messages for the given input field
+     *
+     * @param string $inputField
+     */
+    abstract protected function setMessagesFor($inputField);
 
     /**
      * Map the mapFunction() across all inputs for this field.

@@ -60,6 +60,12 @@ class BaseFieldTypeTest extends AbstractTestCase
         $this->assertEquals(['field' => 'value'], $output);
     }
 
+    public function testSetMessagesForIsCalled()
+    {
+        $this->baseFieldType->expects($this->once())->method('setMessagesFor');
+        $this->baseFieldType->setInputFields(['field']);
+    }
+
     /***************************************************************************************************/
 
     protected function getEnvironmentSetUp($app)

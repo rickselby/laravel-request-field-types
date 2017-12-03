@@ -8,20 +8,22 @@ use RickSelby\LaravelRequestFieldTypes\FieldTypesRequest;
 
 class FieldTypesRequestTest extends AbstractTestCase
 {
-    /** @var FieldTypesRequest */
-    private $request;
-    private $fieldTypes;
-    private $fieldTypeRules;
-
     public function testRulesFormat()
     {
         $this->request->setRules('field', ['rule1', 'rule2']);
         $this->assertEquals(['field' => 'rule1|rule2'], $this->request->rules());
     }
 
+    public function testMessagesFormat()
+    {
+        $this->request->setMessage('field', 'message');
+        $this->assertEquals(['field' => 'message'], $this->request->messages());
+    }
+
     public function testValidate()
     {
         $this->request->expects($this->once())->method('defineRules');
+        $this->request->expects($this->once())->method('defineMessages');
         $this->fieldTypes->expects($this->once())->method('modifyInputAfterValidation')->willReturn([]);
         $this->request->validate();
     }
@@ -68,6 +70,12 @@ class FieldTypesRequestTest extends AbstractTestCase
 
     /***************************************************************************************************/
 
+    /** @var FieldTypesRequest */
+    private $request;
+    private $fieldTypes;
+    private $fieldTypeRules;
+    private $fieldTypeMessages;
+
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
@@ -75,8 +83,10 @@ class FieldTypesRequestTest extends AbstractTestCase
         $this->fieldTypes = $this->createMock(FieldTypes::class);
 
         $this->fieldTypeRules = collect();
+        $this->fieldTypeMessages = collect();
 
         $this->fieldTypes->method('getRules')->willReturn($this->fieldTypeRules);
+        $this->fieldTypes->method('getMessages')->willReturn($this->fieldTypeMessages);
 
         $this->request = $this->getMockForAbstractClass(
             AuthorizedRequestStub::class,

@@ -8,13 +8,6 @@ use RickSelby\LaravelRequestFieldTypes\FieldTypeInterface;
 
 class FieldTypesTest extends AbstractTestCase
 {
-    /** @var FieldTypes */
-    private $fieldTypes;
-
-    private $mocks;
-    private $rules;
-    private $input;
-
     /**
      * @expectedException \Exception
      */
@@ -27,6 +20,12 @@ class FieldTypesTest extends AbstractTestCase
     {
         $this->fieldTypes->register('firstMock');
         $this->assertEquals($this->rules, $this->fieldTypes->getRules());
+    }
+
+    public function testMessages()
+    {
+        $this->fieldTypes->register('firstMock');
+        $this->assertEquals($this->messages, $this->fieldTypes->getMessages());
     }
 
     public function testRegisteringSameFieldTwiceDoesntDuplicate()
@@ -43,6 +42,16 @@ class FieldTypesTest extends AbstractTestCase
         $this->assertEquals(
             $this->rules->concat($this->rules),
             $this->fieldTypes->getRules()
+        );
+    }
+
+    public function testRegisteringTwoFieldsGetsBothMessages()
+    {
+        $this->fieldTypes->register('firstMock');
+        $this->fieldTypes->register('secondMock');
+        $this->assertEquals(
+            $this->messages->concat($this->messages),
+            $this->fieldTypes->getMessages()
         );
     }
 
@@ -94,6 +103,14 @@ class FieldTypesTest extends AbstractTestCase
 
     /***************************************************************************************************/
 
+    /** @var FieldTypes */
+    private $fieldTypes;
+
+    private $mocks;
+    private $rules;
+    private $input;
+    private $messages;
+
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
@@ -101,6 +118,7 @@ class FieldTypesTest extends AbstractTestCase
         $this->fieldTypes = $app->make(FieldTypes::class);
 
         $this->rules = new Collection(['rules']);
+        $this->messages = new Collection(['message']);
         $this->input = ['sth' => 'changed'];
 
         $this->makeFieldMocks(['firstMock', 'secondMock']);
@@ -122,6 +140,7 @@ class FieldTypesTest extends AbstractTestCase
             $this->mocks[$name]->method('getIdentifier')->willReturn($name);
             $this->mocks[$name]->method('setInputFields')->willReturn(collect());
             $this->mocks[$name]->method('getRules')->willReturn($this->rules);
+            $this->mocks[$name]->method('getMessages')->willReturn($this->messages);
             $this->mocks[$name]->method('modifyInputAfterValidation')->willReturn($this->input);
         }
     }

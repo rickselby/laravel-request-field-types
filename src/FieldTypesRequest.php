@@ -11,7 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 abstract class FieldTypesRequest extends FormRequest
 {
-    use RulesTrait {
+    use MessagesTrait, RulesTrait {
         setRules as private traitSetRules;
     }
 
@@ -71,6 +71,11 @@ abstract class FieldTypesRequest extends FormRequest
     abstract public function defineRules();
 
     /**
+     * Define your messages here.
+     */
+    abstract public function defineMessages();
+
+    /**
      * Get all rules, defined in the fields and locally.
      *
      * @return array
@@ -81,6 +86,15 @@ abstract class FieldTypesRequest extends FormRequest
             ->union($this->getRules())
             ->map->implode('|')
             ->setKeyOrder($this->fieldOrder)
+            ->toArray();
+    }
+
+    public function messages()
+    {
+        $this->defineMessages();
+
+        return $this->fields->getMessages()
+            ->union($this->getMessages())
             ->toArray();
     }
 
