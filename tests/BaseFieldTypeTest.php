@@ -2,7 +2,7 @@
 
 namespace RickSelby\Tests;
 
-use Illuminate\Support\Collection;
+use RickSelby\Tests\Stubs\IDFieldTypeStub;
 use RickSelby\LaravelRequestFieldTypes\BaseFieldType;
 
 class BaseFieldTypeTest extends AbstractTestCase
@@ -12,29 +12,36 @@ class BaseFieldTypeTest extends AbstractTestCase
 
     public function testGetIdentifier()
     {
-        $this->setProtectedProperty($this->baseFieldType, 'identifier', 'ID');
         $this->assertEquals('ID', $this->baseFieldType->getIdentifier());
     }
 
     public function testSetInputFieldsSimple()
     {
         $this->baseFieldType->setInputFields(['field']);
-        $this->assertEquals(new Collection(['field' => ['rule']]), $this->baseFieldType->getRules());
+        $this->assertEquals(collect(['field' => collect(['rule'])]), $this->baseFieldType->getRules());
     }
 
     public function testSetInputFieldsWithExtraRules()
     {
         $this->baseFieldType->setInputFields(['field' => 'rule2']);
-        $this->assertEquals(new Collection(['field' => ['rule2', 'rule']]), $this->baseFieldType->getRules());
+        $this->assertEquals(collect(['field' => collect(['rule2', 'rule'])]), $this->baseFieldType->getRules());
+    }
+
+    public function testSetInputFieldsSimpleReturnsFieldNames()
+    {
+        $this->assertEquals(
+            collect(['field1', 'field2']),
+            $this->baseFieldType->setInputFields(['field1', 'field2' => 'rule'])
+        );
     }
 
     public function testSetInputFieldsWithBoth()
     {
         $this->baseFieldType->setInputFields(['simplefield', 'field' => 'rule2']);
         $this->assertEquals(
-            new Collection([
-                'simplefield' => ['rule'],
-                'field' => ['rule2', 'rule'],
+            collect([
+                'simplefield' => collect(['rule']),
+                'field' => collect(['rule2', 'rule']),
             ]),
             $this->baseFieldType->getRules()
         );
@@ -53,13 +60,19 @@ class BaseFieldTypeTest extends AbstractTestCase
         $this->assertEquals(['field' => 'value'], $output);
     }
 
+    public function testSetMessagesForIsCalled()
+    {
+        $this->baseFieldType->expects($this->once())->method('setMessagesFor');
+        $this->baseFieldType->setInputFields(['field']);
+    }
+
     /***************************************************************************************************/
 
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
 
-        $this->baseFieldType = $this->getMockForAbstractClass(BaseFieldType::class);
+        $this->baseFieldType = $this->getMockForAbstractClass(IDFieldTypeStub::class);
         $this->baseFieldType->expects($this->any())->method('rules')->willReturn(['rule']);
     }
 

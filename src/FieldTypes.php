@@ -5,6 +5,7 @@ namespace RickSelby\LaravelRequestFieldTypes;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Container\Container;
+use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
 
 class FieldTypes
 {
@@ -41,10 +42,14 @@ class FieldTypes
      *
      * @param string $fieldType
      * @param array $fieldNames
+     *
+     * @returns Collection
+     *
+     * @throws \Exception
      */
-    public function setInputsFor($fieldType, $fieldNames)
+    public function setInputsFor($fieldType, array $fieldNames): Collection
     {
-        $this->getIdentifier($fieldType)->setInputFields($fieldNames);
+        return $this->getIdentifier($fieldType)->setInputFields($fieldNames);
     }
 
     /**
@@ -74,6 +79,15 @@ class FieldTypes
         return $this->fieldTypes
             ->map(function (FieldTypeInterface $fieldType) {
                 return $fieldType->getRules();
+            })
+            ->collapse();
+    }
+
+    public function getMessages(): Collection
+    {
+        return $this->fieldTypes
+            ->map(function (FieldTypeInterface $fieldType) {
+                return $fieldType->getMessages();
             })
             ->collapse();
     }

@@ -3,16 +3,19 @@
 namespace RickSelby\LaravelRequestFieldTypes;
 
 use Illuminate\Support\Collection;
+use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
+use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
 
 abstract class BaseFieldType implements FieldTypeInterface
 {
-    use RulesTrait;
+    use MessagesTrait, RulesTrait;
 
-    /** @var string */
-    protected $identifier;
+    const ID = '';
 
     public function __construct()
     {
+        $this->initialiseMessages();
         $this->initialiseRules();
     }
 
@@ -23,7 +26,7 @@ abstract class BaseFieldType implements FieldTypeInterface
      */
     public function getIdentifier(): string
     {
-        return $this->identifier;
+        return static::ID;
     }
 
     /**
@@ -31,19 +34,28 @@ abstract class BaseFieldType implements FieldTypeInterface
      * and definitions of rules for an input field name (as fieldName => rules).
      *
      * @param array $inputFields
+     *
+     * @return Collection
      */
-    public function setInputFields(array $inputFields)
+    public function setInputFields(array $inputFields): Collection
     {
+        $fieldNames = collect();
         foreach ($inputFields as $key => $value) {
             if (is_string($key)) {
                 if (! is_array($value)) {
                     $value = [$value];
                 }
                 $this->setRules($key, array_merge($value, $this->rules()));
+                $fieldNames->push($key);
+                $this->setMessagesFor($key);
             } else {
                 $this->setRules($value, $this->rules());
+                $fieldNames->push($value);
+                $this->setMessagesFor($value);
             }
         }
+
+        return $fieldNames;
     }
 
     /**
@@ -52,6 +64,13 @@ abstract class BaseFieldType implements FieldTypeInterface
      * @return array
      */
     abstract protected function rules(): array;
+
+    /**
+     * Set custom messages for the given input field.
+     *
+     * @param string $inputField
+     */
+    abstract protected function setMessagesFor($inputField);
 
     /**
      * Map the mapFunction() across all inputs for this field.
