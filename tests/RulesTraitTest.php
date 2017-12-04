@@ -3,19 +3,10 @@
 namespace RickSelby\Tests;
 
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\RulesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
 
 class RulesTraitTest extends AbstractTestCase
 {
-    /** @var RulesTrait */
-    private $rulesTrait;
-
-    protected function getEnvironmentSetUp($app)
-    {
-        parent::getEnvironmentSetUp($app);
-        $this->rulesTrait = $this->getMockForTrait(RulesTrait::class);
-    }
-
     public function testGetRulesIsCollection()
     {
         $this->assertInstanceOf(Collection::class, $this->rulesTrait->getRules());
@@ -29,7 +20,7 @@ class RulesTraitTest extends AbstractTestCase
 
         $this->assertEquals(1, $rules->count());
         $this->assertEquals('field', $rules->keys()->first());
-        $this->assertEquals(['rule'], $rules->first());
+        $this->assertEquals(collect(['rule']), $rules->first());
     }
 
     public function testSetMultipleRules()
@@ -41,7 +32,7 @@ class RulesTraitTest extends AbstractTestCase
 
         $this->assertEquals(1, $rules->count());
         $this->assertEquals('field', $rules->keys()->first());
-        $this->assertEquals(['rule1', 'rule2'], array_values($rules->first()));
+        $this->assertEquals(collect(['rule1', 'rule2']), $rules->first());
     }
 
     public function testSetMultipleRulesNoDuplicated()
@@ -53,6 +44,17 @@ class RulesTraitTest extends AbstractTestCase
 
         $this->assertEquals(1, $rules->count());
         $this->assertEquals('field', $rules->keys()->first());
-        $this->assertEquals(['rule1', 'rule2', 'rule3'], array_values($rules->first()));
+        $this->assertEquals(collect(['rule1', 'rule2', 'rule3']), $rules->first());
+    }
+
+    /***************************************************************************************************/
+
+    /** @var RulesTrait */
+    private $rulesTrait;
+
+    protected function getEnvironmentSetUp($app)
+    {
+        parent::getEnvironmentSetUp($app);
+        $this->rulesTrait = $this->getMockForTrait(RulesTrait::class);
     }
 }

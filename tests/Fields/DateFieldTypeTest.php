@@ -3,7 +3,6 @@
 namespace RickSelby\Tests\Fields;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use RickSelby\Tests\AbstractTestCase;
 use RickSelby\LaravelRequestFieldTypes\Fields\DateFieldType;
 
@@ -16,7 +15,7 @@ class DateFieldTypeTest extends AbstractTestCase
     {
         $this->fieldType->setInputFields(['field']);
         $this->assertEquals(
-            new Collection(['field' => ['date_format:"Y-m-d"']]),
+            collect(['field' => collect(['date_format:"Y-m-d"'])]),
             $this->fieldType->getRules()
         );
     }
