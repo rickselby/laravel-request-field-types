@@ -3,9 +3,9 @@
 namespace RickSelby\LaravelRequestFieldTypes;
 
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
-use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
 use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
+use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
 
 abstract class BaseFieldType implements FieldTypeInterface
 {
@@ -66,7 +66,7 @@ abstract class BaseFieldType implements FieldTypeInterface
     abstract protected function rules(): array;
 
     /**
-     * Set custom messages for the given input field
+     * Set custom messages for the given input field.
      *
      * @param string $inputField
      */
