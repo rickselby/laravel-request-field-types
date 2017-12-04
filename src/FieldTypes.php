@@ -5,6 +5,7 @@ namespace RickSelby\LaravelRequestFieldTypes;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Container\Container;
+use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
 
 class FieldTypes
 {

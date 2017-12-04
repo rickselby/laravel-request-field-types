@@ -4,7 +4,7 @@ namespace RickSelby\Tests;
 
 use Illuminate\Support\Collection;
 use RickSelby\LaravelRequestFieldTypes\FieldTypes;
-use RickSelby\LaravelRequestFieldTypes\FieldTypeInterface;
+use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
 
 class FieldTypesTest extends AbstractTestCase
 {

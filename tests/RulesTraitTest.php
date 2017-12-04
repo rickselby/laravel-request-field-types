@@ -3,7 +3,7 @@
 namespace RickSelby\Tests;
 
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\RulesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
 
 class RulesTraitTest extends AbstractTestCase
 {

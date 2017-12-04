@@ -3,7 +3,7 @@
 namespace RickSelby\Tests;
 
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\MessagesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
 
 class MessagesTraitTest extends AbstractTestCase
 {

@@ -3,6 +3,8 @@
 namespace RickSelby\LaravelRequestFieldTypes;
 
 use Illuminate\Foundation\Http\FormRequest;
+use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
 
 /**
  * An extended requests that allows the use of the Fields class to manage defined fields.

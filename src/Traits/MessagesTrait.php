@@ -1,6 +1,6 @@
 <?php
 
-namespace RickSelby\LaravelRequestFieldTypes;
+namespace RickSelby\LaravelRequestFieldTypes\Traits;
 
 use Illuminate\Support\Collection;
 

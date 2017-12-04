@@ -3,6 +3,9 @@
 namespace RickSelby\LaravelRequestFieldTypes;
 
 use Illuminate\Support\Collection;
+use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
+use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
 
 abstract class BaseFieldType implements FieldTypeInterface
 {

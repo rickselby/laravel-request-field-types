@@ -1,6 +1,6 @@
 <?php
 
-namespace RickSelby\LaravelRequestFieldTypes;
+namespace RickSelby\LaravelRequestFieldTypes\Interfaces;
 
 use Illuminate\Support\Collection;
 

@@ -16,7 +16,7 @@ Tested on PHP >= 7.0, Laravel >= 5.4.
 $ composer require rickselby/laravel-request-field-types
 ```
 
-Under Laravel 5.5, the package will be automatically discovered.
+Under Laravel 5.5, the service provider and facade will be automatically registered.
 
 ## Terminology
 
@@ -27,7 +27,8 @@ Under Laravel 5.5, the package will be automatically discovered.
 
 ## Defining field types
 
-Each field must implement `FieldTypeInterface`. `BaseFieldType` implements the interface and sets up
+Each field must implement `RickSelby\LaravelRequestFieldTypes\InterfacesFieldTypeInterface`.
+`RickSelby\LaravelRequestFieldTypes\BaseFieldType` implements the interface and sets up
 common functions, and is a good starting place to implementing your own fields.
 
 Three things need implementing from the `BaseFieldType`:
