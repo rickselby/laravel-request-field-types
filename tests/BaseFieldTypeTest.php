@@ -10,11 +10,6 @@ class BaseFieldTypeTest extends AbstractTestCase
     /** @var BaseFieldType */
     private $baseFieldType;
 
-    public function testGetIdentifier()
-    {
-        $this->assertEquals('ID', $this->baseFieldType->getIdentifier());
-    }
-
     public function testSetInputFieldsSimple()
     {
         $this->baseFieldType->setInputFields(['field']);

@@ -16,7 +16,7 @@ Tested on PHP >= 7.0, Laravel >= 5.4.
 $ composer require rickselby/laravel-request-field-types
 ```
 
-Under Laravel 5.5, the service provider and facade will be automatically registered.
+Under Laravel 5.5, the service provider will be automatically registered.
 
 ## Terminology
 
@@ -31,21 +31,12 @@ Each field must implement `RickSelby\LaravelRequestFieldTypes\InterfacesFieldTyp
 `RickSelby\LaravelRequestFieldTypes\BaseFieldType` implements the interface and sets up
 common functions, and is a good starting place to implementing your own fields.
 
-Three things need implementing from the `BaseFieldType`:
+Two things need implementing from the `BaseFieldType`:
 
-* `const ID` - a unique identifier for the field
 * `rules()` - the default rules for an input field
 * `setMessagesFor($inputField)` - define any custom messages for the input field
 
 An example field is included (DateFieldType).
-
-### Registering field types
-
-Each field type needs to be registered; this can be done in a service provider:
-
-```php
-FieldTypes::register(RickSelby\LaravelRequestFieldTypes\Fields\DateFieldType::class);
-```
 
 ## Using field types in requests
 
@@ -66,13 +57,13 @@ Instead of adding rules to an array in `rules()`, we can define them using funct
 For a defined field types, use `setInputsFor()`:
 
 ```php
-$this->setInputsFor(DateFieldType::ID, ['start_date', 'end_date']);
+$this->setInputsFor(DateFieldType::class, ['start_date', 'end_date']);
 
 // Passing a key => value pair allows extra rules to be added to an input field;
-$this->setInputsFor(DateFieldType::ID, ['start_date' => 'required']);
+$this->setInputsFor(DateFieldType::class, ['start_date' => 'required']);
 
 // Keyed and non-keyed field names can be mixed as required
-$this->setInputsFor(Date::ID, ['start_date' => 'required', 'end_date']);
+$this->setInputsFor(DateFieldType::class, ['start_date' => 'required', 'end_date']);
 ```
 
 For other fields, rules can be set directly with `setRules()`:
