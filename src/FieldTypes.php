@@ -46,9 +46,10 @@ class FieldTypes
      */
     protected function getIdentifier($fieldType)
     {
-        if (!$this->fieldTypes->has($fieldType)) {
+        if (! $this->fieldTypes->has($fieldType)) {
             $this->register($fieldType);
         }
+
         return $this->fieldTypes->get($fieldType);
     }
 
