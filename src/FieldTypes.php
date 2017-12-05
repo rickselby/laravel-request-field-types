@@ -77,18 +77,14 @@ class FieldTypes
     public function getRules(): Collection
     {
         return $this->fieldTypes
-            ->map(function (FieldTypeInterface $fieldType) {
-                return $fieldType->getRules();
-            })
+            ->map->getRules()
             ->collapse();
     }
 
     public function getMessages(): Collection
     {
         return $this->fieldTypes
-            ->map(function (FieldTypeInterface $fieldType) {
-                return $fieldType->getMessages();
-            })
+            ->map->getMessages()
             ->collapse();
     }
 
