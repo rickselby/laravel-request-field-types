@@ -22,25 +22,9 @@ class FieldTypes
     }
 
     /**
-     * Register a field type.
-     *
-     * @param string $class
-     * @throws \Exception
-     */
-    public function register(string $class)
-    {
-        $fieldType = $this->app->make($class);
-        if (! $fieldType instanceof FieldTypeInterface) {
-            throw new \Exception('Registered field type must implement FieldTypeInterface');
-        }
-
-        $this->fieldTypes->put($fieldType->getIdentifier(), $fieldType);
-    }
-
-    /**
      * Set input fields for a field type, given by its identifier.
      *
-     * @param string $fieldType
+     * @param string $fieldType Class name for field type
      * @param array $fieldNames
      *
      * @returns Collection
@@ -55,18 +39,34 @@ class FieldTypes
     /**
      * Get a field by its identifier.
      *
-     * @param string $fieldType
+     * @param string $fieldType Class name for field type
      *
      * @return FieldTypeInterface
      * @throws \Exception
      */
     protected function getIdentifier($fieldType)
     {
-        if ($this->fieldTypes->has($fieldType)) {
-            return $this->fieldTypes->get($fieldType);
-        } else {
-            throw new \Exception('Field type "'.$fieldType.'" not found');
+        if (! $this->fieldTypes->has($fieldType)) {
+            $this->register($fieldType);
         }
+
+        return $this->fieldTypes->get($fieldType);
+    }
+
+    /**
+     * Register a field type.
+     *
+     * @param string $class
+     * @throws \Exception
+     */
+    private function register(string $class)
+    {
+        $fieldType = $this->app->make($class);
+        if (! $fieldType instanceof FieldTypeInterface) {
+            throw new \Exception('Registered field type must implement FieldTypeInterface');
+        }
+
+        $this->fieldTypes->put($class, $fieldType);
     }
 
     /**
@@ -77,18 +77,14 @@ class FieldTypes
     public function getRules(): Collection
     {
         return $this->fieldTypes
-            ->map(function (FieldTypeInterface $fieldType) {
-                return $fieldType->getRules();
-            })
+            ->map->getRules()
             ->collapse();
     }
 
     public function getMessages(): Collection
     {
         return $this->fieldTypes
-            ->map(function (FieldTypeInterface $fieldType) {
-                return $fieldType->getMessages();
-            })
+            ->map->getMessages()
             ->collapse();
     }
 

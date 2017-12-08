@@ -13,32 +13,32 @@ class FieldTypesTest extends AbstractTestCase
      */
     public function testRegisteringWrongClassThrowsException()
     {
-        $this->fieldTypes->register(self::class);
+        $this->fieldTypes->setInputsFor(self::class, []);
     }
 
     public function testRules()
     {
-        $this->fieldTypes->register('firstMock');
+        $this->fieldTypes->setInputsFor('firstMock', []);
         $this->assertEquals($this->rules, $this->fieldTypes->getRules());
     }
 
     public function testMessages()
     {
-        $this->fieldTypes->register('firstMock');
+        $this->fieldTypes->setInputsFor('firstMock', []);
         $this->assertEquals($this->messages, $this->fieldTypes->getMessages());
     }
 
     public function testRegisteringSameFieldTwiceDoesntDuplicate()
     {
-        $this->fieldTypes->register('firstMock');
-        $this->fieldTypes->register('firstMock');
+        $this->fieldTypes->setInputsFor('firstMock', []);
+        $this->fieldTypes->setInputsFor('firstMock', []);
         $this->assertEquals($this->rules, $this->fieldTypes->getRules());
     }
 
     public function testRegisteringTwoFieldsGetsBoth()
     {
-        $this->fieldTypes->register('firstMock');
-        $this->fieldTypes->register('secondMock');
+        $this->fieldTypes->setInputsFor('firstMock', []);
+        $this->fieldTypes->setInputsFor('secondMock', []);
         $this->assertEquals(
             $this->rules->concat($this->rules),
             $this->fieldTypes->getRules()
@@ -47,8 +47,8 @@ class FieldTypesTest extends AbstractTestCase
 
     public function testRegisteringTwoFieldsGetsBothMessages()
     {
-        $this->fieldTypes->register('firstMock');
-        $this->fieldTypes->register('secondMock');
+        $this->fieldTypes->setInputsFor('firstMock', []);
+        $this->fieldTypes->setInputsFor('secondMock', []);
         $this->assertEquals(
             $this->messages->concat($this->messages),
             $this->fieldTypes->getMessages()
@@ -57,7 +57,7 @@ class FieldTypesTest extends AbstractTestCase
 
     public function testInputModify()
     {
-        $this->fieldTypes->register('firstMock');
+        $this->fieldTypes->setInputsFor('firstMock', []);
         $this->assertEquals($this->input, $this->fieldTypes->modifyInputAfterValidation([]));
     }
 
@@ -71,33 +71,23 @@ class FieldTypesTest extends AbstractTestCase
             ->expects($this->once())
             ->method('modifyInputAfterValidation')
             ->with($this->input);
-        $this->fieldTypes->register('firstMock');
-        $this->fieldTypes->register('secondMock');
+        $this->fieldTypes->setInputsFor('firstMock', []);
+        $this->fieldTypes->setInputsFor('secondMock', []);
         $this->fieldTypes->modifyInputAfterValidation([]);
     }
 
     public function testSetInputsCalls()
     {
         $this->mocks['firstMock']->expects($this->once())->method('setInputFields');
-        $this->fieldTypes->register('firstMock');
         $this->fieldTypes->setInputsFor('firstMock', []);
     }
 
     public function testSetInputsCallsCorrect()
     {
-        $this->mocks['firstMock']->expects($this->once())->method('setInputFields');
-        $this->mocks['secondMock']->expects($this->never())->method('setInputFields');
-        $this->fieldTypes->register('firstMock');
-        $this->fieldTypes->register('secondMock');
+        $this->mocks['firstMock']->expects($this->exactly(2))->method('setInputFields');
+        $this->mocks['secondMock']->expects($this->once())->method('setInputFields');
         $this->fieldTypes->setInputsFor('firstMock', []);
-    }
-
-    /**
-     * @expectedException \Exception
-     */
-    public function testUnknownFieldThrowsException()
-    {
-        // don't register anything
+        $this->fieldTypes->setInputsFor('secondMock', []);
         $this->fieldTypes->setInputsFor('firstMock', []);
     }
 
@@ -137,7 +127,6 @@ class FieldTypesTest extends AbstractTestCase
         foreach ($names as $name) {
             $this->mocks[$name] = $this->createMock(FieldTypeInterface::class);
 
-            $this->mocks[$name]->method('getIdentifier')->willReturn($name);
             $this->mocks[$name]->method('setInputFields')->willReturn(collect());
             $this->mocks[$name]->method('getRules')->willReturn($this->rules);
             $this->mocks[$name]->method('getMessages')->willReturn($this->messages);

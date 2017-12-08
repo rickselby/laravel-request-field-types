@@ -7,13 +7,6 @@ use Illuminate\Support\Collection;
 interface FieldTypeInterface
 {
     /**
-     * Get the identifier for this field.
-     *
-     * @return string
-     */
-    public function getIdentifier(): string;
-
-    /**
      * Set a list of input fields.
      *
      * @param array $inputFields

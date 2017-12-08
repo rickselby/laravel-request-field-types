@@ -11,22 +11,10 @@ abstract class BaseFieldType implements FieldTypeInterface
 {
     use MessagesTrait, RulesTrait;
 
-    const ID = '';
-
     public function __construct()
     {
         $this->initialiseMessages();
         $this->initialiseRules();
-    }
-
-    /**
-     * Get the identifier for the field for registration.
-     *
-     * @return string
-     */
-    public function getIdentifier(): string
-    {
-        return static::ID;
     }
 
     /**
