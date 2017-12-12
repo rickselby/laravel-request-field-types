@@ -7,8 +7,6 @@ use RickSelby\LaravelRequestFieldTypes\BaseFieldType;
 
 class DateFieldType extends BaseFieldType
 {
-    const ID = 'date';
-
     protected $dateFormat = 'Y-m-d';
 
     protected function rules(): array
