@@ -11,7 +11,7 @@ class FieldTypesRequestTest extends AbstractTestCase
     public function testRulesFormat()
     {
         $this->request->setRules('field', ['rule1', 'rule2']);
-        $this->assertEquals(['field' => 'rule1|rule2'], $this->request->rules());
+        $this->assertEquals(['field' => ['rule1', 'rule2']], $this->request->rules());
     }
 
     public function testMessagesFormat()
@@ -65,7 +65,7 @@ class FieldTypesRequestTest extends AbstractTestCase
     {
         $this->fieldTypeRules->put('field', collect(['rule']));
 
-        $this->assertEquals(['field' => 'rule'], $this->request->rules());
+        $this->assertEquals(['field' => ['rule']], $this->request->rules());
     }
 
     /***************************************************************************************************/
