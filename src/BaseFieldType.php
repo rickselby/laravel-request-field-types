@@ -98,7 +98,7 @@ abstract class BaseFieldType implements FieldTypeInterface
      * Alter the request object for the given fields using the given callback.
      *
      * @param mixed[] $requestValues Values from the request
-     * @param Collection $fieldNameList List of input field names to work on
+     * @param Collection|array $fieldNameList List of input field names to work on
      * @param callback $callback  Function to run on the value
      *
      * @return mixed[]
@@ -107,21 +107,55 @@ abstract class BaseFieldType implements FieldTypeInterface
     {
         $mergeArray = [];
         foreach ($fieldNameList as $field) {
-            if (strstr($field, '*')) {
-                // If we're replacing multiple things with an asterisk, we need
-                // to fiddle it...
-                $data = $this->mapFieldsRecursive(data_get($requestValues, $field), $callback);
-                if (is_array($data)) {
-                    foreach ($data as $k => $v) {
-                        data_set($mergeArray, str_replace('*', $k, $field), $v);
-                    }
-                }
+            if (strpos($field, '*') !== false) {
+                $mergeArray = $this->mapAsteriskField($requestValues, $field, $callback, $mergeArray);
             } else {
                 data_set($mergeArray, $field, $this->mapFieldsRecursive(data_get($requestValues, $field), $callback));
             }
         }
 
         return array_replace_recursive($requestValues, $mergeArray);
+    }
+
+    /**
+     * Map a callback for a field that contains at least one asterisk. Maintain key values.
+     *
+     * @param $requestValues
+     * @param $field
+     * @param $callback
+     * @param $mergeArray
+     *
+     * @return mixed
+     */
+    final protected function mapAsteriskField($requestValues, $field, $callback, $mergeArray)
+    {
+        $asterisk = strpos($field, '*');
+        $base = substr($field, 0, $asterisk - 1);
+
+        if ($asterisk == strlen($field) - 1) {
+            // Nothing after the asterisk
+            $data = $this->mapFieldsRecursive(data_get($requestValues, $base), $callback);
+            if (is_array($data)) {
+                foreach ($data as $k => $v) {
+                    data_set($mergeArray, str_replace('*', $k, $field), $v);
+                }
+            }
+        } else {
+            // Selecting a field beyond the asterisk
+
+            // Rebuild the rest of the field, stripping off the leading '.'
+            $rest = substr($field, $asterisk + 2);
+
+            $data = (data_get($requestValues, $base));
+            if (is_array($data)) {
+                foreach ($data as $key => $values) {
+                    // Recurse through the 'sub-data'. Should catch any other asterisks, too.
+                    data_set($mergeArray, $base.'.'.$key, $this->mapFields($values, [$rest], $callback));
+                }
+            }
+        }
+
+        return $mergeArray;
     }
 
     /**
