@@ -99,7 +99,7 @@ abstract class BaseFieldType implements FieldTypeInterface
      *
      * @param mixed[] $requestValues Values from the request
      * @param Collection|array $fieldNameList List of input field names to work on
-     * @param callback $callback  Function to run on the value
+     * @param callable $callback  Function to run on the value
      *
      * @return mixed[]
      */
