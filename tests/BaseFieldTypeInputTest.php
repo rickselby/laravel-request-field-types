@@ -30,27 +30,27 @@ class BaseFieldTypeInputTest extends AbstractTestCase
         $this->assertEquals(['field' => 'touched', 'field2' => 'value'], $output);
     }
 
-    public function testModifyInputOnlyModifiesMultipleFields()
+    public function testModifyInputOnlyModifiesMultipleFields1()
     {
         $this->baseFieldType->setInputFields(['field.*']);
         $output = $this->baseFieldType->modifyInputAfterValidation([
             'field' => [
-                'value',
-                'value',
+                'a' => 'value',
+                'b' => 'value',
             ],
             'field2' => [
-                'value',
-                'value',
+                'a' => 'value',
+                'b' => 'value',
             ],
         ]);
         $this->assertEquals([
             'field' => [
-                'touched',
-                'touched',
+                'a' => 'touched',
+                'b' => 'touched',
             ],
             'field2' => [
-                'value',
-                'value',
+                'a' => 'value',
+                'b' => 'value',
             ],
         ], $output);
     }
@@ -60,11 +60,11 @@ class BaseFieldTypeInputTest extends AbstractTestCase
         $this->baseFieldType->setInputFields(['field.*.change']);
         $output = $this->baseFieldType->modifyInputAfterValidation([
             'field' => [
-                [
+                'a' => [
                     'change' => 'value',
                     'leave' => 'value',
                 ],
-                [
+                'b' => [
                     'change' => 'value',
                     'leave' => 'value',
                 ],
@@ -72,11 +72,11 @@ class BaseFieldTypeInputTest extends AbstractTestCase
         ]);
         $this->assertEquals([
             'field' => [
-                [
+                'a' => [
                     'change' => 'touched',
                     'leave' => 'value',
                 ],
-                [
+                'b' => [
                     'change' => 'touched',
                     'leave' => 'value',
                 ],
