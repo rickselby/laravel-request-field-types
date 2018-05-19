@@ -20,12 +20,12 @@ class FieldTypesRequestTest extends AbstractTestCase
         $this->assertEquals(['field' => 'message'], $this->request->messages());
     }
 
-    public function testValidate()
+    public function testValidateResolved()
     {
         $this->request->expects($this->once())->method('defineRules');
         $this->request->expects($this->once())->method('defineMessages');
         $this->fieldTypes->expects($this->once())->method('modifyInputAfterValidation')->willReturn([]);
-        $this->request->validate();
+        $this->request->validateResolved();
     }
 
     public function testRulesOrder()

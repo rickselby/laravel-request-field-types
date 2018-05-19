@@ -8,7 +8,12 @@
 
 A way of defining common input field types in a central location and use them among all requests in your app.
 
-Tested on PHP >= 7.0, Laravel >= 5.4.
+**NB: 3.x passes tests but I haven't tried it 'for real' yet; I will do so at some point and may write better tests...**
+
+| Laravel Request Field Types                                              | Laravel   | PHP    |
+|--------------------------------------------------------------------------|-----------|--------|
+| **3.x**                                                                  | 5.6       | 7.1.3+ |
+| [2.x](https://github.com/rickselby/laravel-request-field-types/tree/2.x) | 5.4 – 5.5 | 7.0+   |
 
 ## Installing
 
@@ -16,7 +21,7 @@ Tested on PHP >= 7.0, Laravel >= 5.4.
 $ composer require rickselby/laravel-request-field-types
 ```
 
-Under Laravel 5.5, the service provider will be automatically registered.
+Under Laravel >=5.5, the service provider will be automatically registered.
 
 ## Terminology
 

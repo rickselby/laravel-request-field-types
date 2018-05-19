@@ -33,10 +33,10 @@ abstract class FieldTypesRequest extends FormRequest
     /**
      * Override validation, to modify the request data after successful validation.
      */
-    public function validate()
+    public function validateResolved()
     {
         $this->defineRules();
-        parent::validate();
+        parent::validateResolved();
         $this->runAfterValidate();
     }
 
