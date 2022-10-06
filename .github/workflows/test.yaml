@@ -19,7 +19,6 @@ jobs:
           php-version: ${{ matrix.php }}
 
       - run: composer require "laravel/framework:${{ matrix.laravel }}" --no-update -n
-      - run: cat composer.json
       - run: composer install --prefer-dist -n
 
       - run: vendor/bin/phpunit
