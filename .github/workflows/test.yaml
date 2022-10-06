@@ -1,0 +1,22 @@
+name: Run Tests
+
+on: push
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [7.3, 7.4]
+        laravel: [5.7.*, 5.8.*]
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - run: composer self-update --stable -n
+      - run: composer require "laravel/framework:${{ matrix.laravel }}" --no-update -n
+      - run: composer install --no-suggest --prefer-dist -n -o
+
+      - run: vendor/bin/phpunit
