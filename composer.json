@@ -32,5 +32,8 @@
         "RickSelby\\LaravelRequestFieldTypes\\RequestFieldTypesServiceProvider"
       ]
     }
+  },
+  "config": {
+    "allow-plugins": false
   }
 }
