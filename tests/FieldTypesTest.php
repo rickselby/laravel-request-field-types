@@ -8,11 +8,9 @@ use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
 
 class FieldTypesTest extends AbstractTestCase
 {
-    /**
-     * @expectedException \Exception
-     */
     public function testRegisteringWrongClassThrowsException()
     {
+        $this->expectException(\Exception::class);
         $this->fieldTypes->setInputsFor(self::class, []);
     }
 
