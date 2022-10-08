@@ -2,8 +2,8 @@
 
 namespace RickSelby\Tests;
 
-use RickSelby\LaravelRequestFieldTypes\FieldTypes;
 use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
+use RickSelby\LaravelRequestFieldTypes\FieldTypes;
 
 class ServiceProviderTest extends AbstractTestCase
 {
