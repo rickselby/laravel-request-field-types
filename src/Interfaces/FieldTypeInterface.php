@@ -9,8 +9,7 @@ interface FieldTypeInterface
     /**
      * Set a list of input fields.
      *
-     * @param array $inputFields
-     *
+     * @param  array  $inputFields
      * @return Collection List of input fields added
      */
     public function setInputFields(array $inputFields): Collection;
@@ -32,8 +31,7 @@ interface FieldTypeInterface
     /**
      * Take the list of input values and modify them as required.
      *
-     * @param array $requestValues
-     *
+     * @param  array  $requestValues
      * @return array
      */
     public function modifyInputAfterValidation(array $requestValues): array;

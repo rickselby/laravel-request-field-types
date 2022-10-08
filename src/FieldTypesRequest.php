@@ -3,8 +3,8 @@
 namespace RickSelby\LaravelRequestFieldTypes;
 
 use Illuminate\Foundation\Http\FormRequest;
-use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
 use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
 
 /**
  * An extended requests that allows the use of the Fields class to manage defined fields.
@@ -43,8 +43,8 @@ abstract class FieldTypesRequest extends FormRequest
     /**
      * Set input fields for a field type.
      *
-     * @param string $fieldType
-     * @param array $fieldNames
+     * @param  string  $fieldType
+     * @param  array  $fieldNames
      *
      * @throws \Exception
      */
@@ -59,7 +59,7 @@ abstract class FieldTypesRequest extends FormRequest
      * Set rules for an input field.
      *
      * @param $inputField
-     * @param array $rules
+     * @param  array  $rules
      */
     public function setRules($inputField, array $rules)
     {
@@ -110,7 +110,7 @@ abstract class FieldTypesRequest extends FormRequest
     /**
      * Directly set the field order.
      *
-     * @param array $order
+     * @param  array  $order
      */
     public function setFieldOrder(array $order)
     {

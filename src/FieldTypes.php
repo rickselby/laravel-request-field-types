@@ -2,9 +2,9 @@
 
 namespace RickSelby\LaravelRequestFieldTypes;
 
-use Illuminate\Support\Collection;
-use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Collection;
 use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
 
 class FieldTypes
@@ -24,8 +24,8 @@ class FieldTypes
     /**
      * Set input fields for a field type, given by its identifier.
      *
-     * @param string $fieldType Class name for field type
-     * @param array $fieldNames
+     * @param  string  $fieldType  Class name for field type
+     * @param  array  $fieldNames
      *
      * @returns Collection
      *
@@ -39,9 +39,9 @@ class FieldTypes
     /**
      * Get a field by its identifier.
      *
-     * @param string $fieldType Class name for field type
-     *
+     * @param  string  $fieldType  Class name for field type
      * @return FieldTypeInterface
+     *
      * @throws \Exception
      */
     protected function getIdentifier($fieldType)
@@ -56,7 +56,8 @@ class FieldTypes
     /**
      * Register a field type.
      *
-     * @param string $class
+     * @param  string  $class
+     *
      * @throws \Exception
      */
     private function register(string $class)
@@ -91,8 +92,7 @@ class FieldTypes
     /**
      * Take the request input values and allow each field to modify them as required.
      *
-     * @param array $request
-     *
+     * @param  array  $request
      * @return array
      */
     public function modifyInputAfterValidation($request)

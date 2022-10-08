@@ -2,9 +2,9 @@
 
 namespace RickSelby\Tests;
 
-use RickSelby\Tests\Stubs\AuthorizedRequestStub;
 use RickSelby\LaravelRequestFieldTypes\FieldTypes;
 use RickSelby\LaravelRequestFieldTypes\FieldTypesRequest;
+use RickSelby\Tests\Stubs\AuthorizedRequestStub;
 
 class FieldTypesRequestTest extends AbstractTestCase
 {
