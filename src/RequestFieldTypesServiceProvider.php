@@ -2,9 +2,9 @@
 
 namespace RickSelby\LaravelRequestFieldTypes;
 
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Container\Container;
 
 class RequestFieldTypesServiceProvider extends ServiceProvider
 {
@@ -22,7 +22,7 @@ class RequestFieldTypesServiceProvider extends ServiceProvider
     /**
      * Register the Mapper decorator.
      *
-     * @param Container $app
+     * @param  Container  $app
      */
     protected function registerRequestFields(Container $app)
     {

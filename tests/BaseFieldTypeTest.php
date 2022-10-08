@@ -2,8 +2,8 @@
 
 namespace RickSelby\Tests;
 
-use RickSelby\Tests\Stubs\IDFieldTypeStub;
 use RickSelby\LaravelRequestFieldTypes\BaseFieldType;
+use RickSelby\Tests\Stubs\IDFieldTypeStub;
 
 class BaseFieldTypeTest extends AbstractTestCase
 {
