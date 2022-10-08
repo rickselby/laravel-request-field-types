@@ -3,9 +3,9 @@
 namespace RickSelby\LaravelRequestFieldTypes;
 
 use Illuminate\Support\Collection;
-use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
-use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
 use RickSelby\LaravelRequestFieldTypes\Interfaces\FieldTypeInterface;
+use RickSelby\LaravelRequestFieldTypes\Traits\MessagesTrait;
+use RickSelby\LaravelRequestFieldTypes\Traits\RulesTrait;
 
 abstract class BaseFieldType implements FieldTypeInterface
 {
@@ -21,8 +21,7 @@ abstract class BaseFieldType implements FieldTypeInterface
      * Allow both simple input field names (as array values)
      * and definitions of rules for an input field name (as fieldName => rules).
      *
-     * @param array $inputFields
-     *
+     * @param  array  $inputFields
      * @return Collection
      */
     public function setInputFields(array $inputFields): Collection
@@ -56,15 +55,14 @@ abstract class BaseFieldType implements FieldTypeInterface
     /**
      * Set custom messages for the given input field.
      *
-     * @param string $inputField
+     * @param  string  $inputField
      */
     abstract protected function setMessagesFor($inputField);
 
     /**
      * Map the mapFunction() across all inputs for this field.
      *
-     * @param array $requestValues
-     *
+     * @param  array  $requestValues
      * @return array
      */
     public function modifyInputAfterValidation(array $requestValues): array
@@ -75,8 +73,7 @@ abstract class BaseFieldType implements FieldTypeInterface
     /**
      * By default, don't alter the input values.
      *
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return mixed
      */
     protected function mapAfterValidationFunction($value)
@@ -97,10 +94,9 @@ abstract class BaseFieldType implements FieldTypeInterface
     /**
      * Alter the request object for the given fields using the given callback.
      *
-     * @param mixed[] $requestValues Values from the request
-     * @param Collection|array $fieldNameList List of input field names to work on
-     * @param callable $callback  Function to run on the value
-     *
+     * @param  mixed[]  $requestValues  Values from the request
+     * @param  Collection|array  $fieldNameList  List of input field names to work on
+     * @param  callable  $callback  Function to run on the value
      * @return mixed[]
      */
     final protected function mapFields($requestValues, $fieldNameList, $callback)
@@ -124,7 +120,6 @@ abstract class BaseFieldType implements FieldTypeInterface
      * @param $field
      * @param $callback
      * @param $mergeArray
-     *
      * @return mixed
      */
     final protected function mapAsteriskField($requestValues, $field, $callback, $mergeArray)
@@ -161,9 +156,8 @@ abstract class BaseFieldType implements FieldTypeInterface
     /**
      * Recursively map a callback to all items in an array.
      *
-     * @param mixed $value
-     * @param callable $callback
-     *
+     * @param  mixed  $value
+     * @param  callable  $callback
      * @return array
      */
     final private function mapFieldsRecursive($value, $callback)
