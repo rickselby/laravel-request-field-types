@@ -160,7 +160,7 @@ abstract class BaseFieldType implements FieldTypeInterface
      * @param  callable  $callback
      * @return array
      */
-    final private function mapFieldsRecursive($value, $callback)
+    private function mapFieldsRecursive($value, $callback)
     {
         if (is_array($value)) {
             foreach ($value as $key => $subVal) {
