@@ -52,7 +52,7 @@ class RulesTraitTest extends AbstractTestCase
     /** @var RulesTrait */
     private $rulesTrait;
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
         $this->rulesTrait = $this->getMockForTrait(RulesTrait::class);
