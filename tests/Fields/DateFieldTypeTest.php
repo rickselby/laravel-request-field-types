@@ -34,7 +34,7 @@ class DateFieldTypeTest extends AbstractTestCase
 
     /***************************************************************************************************/
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
 

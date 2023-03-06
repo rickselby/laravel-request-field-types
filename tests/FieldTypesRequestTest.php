@@ -76,7 +76,7 @@ class FieldTypesRequestTest extends AbstractTestCase
     private $fieldTypeRules;
     private $fieldTypeMessages;
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
 

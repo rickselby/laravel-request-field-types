@@ -99,7 +99,7 @@ class FieldTypesTest extends AbstractTestCase
     private $input;
     private $messages;
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
 

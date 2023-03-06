@@ -7,7 +7,7 @@ use RickSelby\LaravelRequestFieldTypes\RequestFieldTypesServiceProvider;
 
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
-    protected function getServiceProviderClass()
+    protected static function getServiceProviderClass(): string
     {
         return RequestFieldTypesServiceProvider::class;
     }

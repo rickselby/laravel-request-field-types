@@ -40,7 +40,7 @@ class MessagesTraitTest extends AbstractTestCase
     /** @var MessagesTrait */
     private $messagesTrait;
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
         $this->messagesTrait = $this->getMockForTrait(MessagesTrait::class);
