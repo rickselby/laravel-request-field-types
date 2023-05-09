@@ -141,7 +141,7 @@ abstract class BaseFieldType implements FieldTypeInterface
             // Rebuild the rest of the field, stripping off the leading '.'
             $rest = substr($field, $asterisk + 2);
 
-            $data = (data_get($requestValues, $base));
+            $data = data_get($requestValues, $base);
             if (is_array($data)) {
                 foreach ($data as $key => $values) {
                     // Recurse through the 'sub-data'. Should catch any other asterisks, too.
