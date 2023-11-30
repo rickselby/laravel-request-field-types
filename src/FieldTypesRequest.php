@@ -58,7 +58,7 @@ abstract class FieldTypesRequest extends FormRequest
     /**
      * Set rules for an input field.
      *
-     * @param $inputField
+     * @param  $inputField
      * @param  array  $rules
      */
     public function setRules($inputField, array $rules)
@@ -120,7 +120,7 @@ abstract class FieldTypesRequest extends FormRequest
     /**
      * Add a single field to the field order.
      *
-     * @param $inputField
+     * @param  $inputField
      */
     private function addFieldToOrder($inputField)
     {
