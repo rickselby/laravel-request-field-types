@@ -12,7 +12,7 @@ A way of defining common input field types in a central location and use them am
 
 | Laravel Request Field Types                                              | Laravel   | PHP    |
 |--------------------------------------------------------------------------|-----------|--------|
-| **3.x**                                                                  | 5.6       | 7.1.3+ |
+| **3.x**                                                                  | 5.6+      | 7.1.3+ |
 | [2.x](https://github.com/rickselby/laravel-request-field-types/tree/2.x) | 5.4 – 5.5 | 7.0+   |
 
 ## Installing
